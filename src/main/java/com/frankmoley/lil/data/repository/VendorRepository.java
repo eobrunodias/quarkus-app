@@ -14,4 +14,7 @@ public class VendorRepository implements PanacheRepository<Vendor> {
         return find("email", email).firstResult();
     }
 
+    public Vendor findByName(String name) {
+        return find("DEFAULTNAME", name).firstResult();
+    }
 }

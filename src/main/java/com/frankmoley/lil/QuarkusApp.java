@@ -6,6 +6,7 @@ import com.frankmoley.lil.data.entity.Vendor;
 import com.frankmoley.lil.data.repository.CustomerRepository;
 import com.frankmoley.lil.data.repository.ServiceRepository;
 import com.frankmoley.lil.data.repository.VendorRepository;
+
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
 import jakarta.enterprise.context.control.ActivateRequestContext;
@@ -16,44 +17,34 @@ import java.util.List;
 public class QuarkusApp implements QuarkusApplication {
 
     private final ServiceRepository serviceRepository;
-    private final VendorRepository vendorRepository;
     private final CustomerRepository customerRepository;
+    private final VendorRepository vendorRepository;
 
-    public QuarkusApp(ServiceRepository serviceRepository, CustomerRepository customerRepository, VendorRepository vendorRepository) {
+    public QuarkusApp(ServiceRepository serviceRepository, CustomerRepository customerRepository,
+                      VendorRepository vendorRepository) {
         this.serviceRepository = serviceRepository;
-        System.out.println("teste");
-        this.vendorRepository = vendorRepository;
         this.customerRepository = customerRepository;
+        this.vendorRepository = vendorRepository;
     }
-
-
-    public static void main(String... args) {
-        io.quarkus.runtime.Quarkus.run(QuarkusApp.class, args);
-    }
-
 
     @Override
     @ActivateRequestContext
     public int run(String... args) throws Exception {
-        List<Service> services = this.serviceRepository.getAllServices();
+        System.out.println("**\nServices**");
+        List<Service> services = this.serviceRepository.listAll();
         services.forEach(System.out::println);
-
-        Vendor vendor = this.vendorRepository.findByEmail("vendor@email.com");
-        System.out.println(vendor);
-
-        Customer customer = this.customerRepository.findByEmail("customer@email.com");
-        System.out.println(customer);
-        System.out.println("teste");
-        System.out.println("teste2");
-
         Service service = this.serviceRepository.findById(2L);
         System.out.println(service);
+        System.out.println("**\nVendors**");
+        Vendor vendor = this.vendorRepository.findByName("DEFAULTNAME");
+        System.out.println("Vendor by name: " + vendor);
+        vendor = this.vendorRepository.findByEmail("vharrison1@geocities.com");
+        System.out.println("Vendor by email: " + vendor);
+        System.out.println("**\nCustomers**");
+        Customer customer = this.customerRepository.findByEmail("montes.nascetur@semperrutrum.net");
+        System.out.println("Customer by email: " + customer);
 
-        System.out.println("Services");
-        System.out.println("Vendors");
-        System.out.println("Customers");
-
+        io.quarkus.runtime.Quarkus.waitForExit();
         return 0;
     }
-
 }
