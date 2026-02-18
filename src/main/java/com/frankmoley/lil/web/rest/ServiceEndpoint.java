@@ -1,21 +1,61 @@
 package com.frankmoley.lil.web.rest;
 
-import com.frankmoley.lil.data.entity.Vendor;
-import io.quarkus.hibernate.orm.panache.PanacheRepository;
-import io.quarkus.panache.common.Parameters;
+import com.frankmoley.lil.data.entity.Service;
+import com.frankmoley.lil.data.repository.ServiceRepository;
+import jakarta.transaction.Transactional;
+import jakarta.ws.rs.*;
+import org.jboss.resteasy.reactive.ResponseStatus;
+import org.jboss.resteasy.reactive.RestPath;
 
-public class ServiceEndpoint implements PanacheRepository<Vendor> {
-    public Vendor findByEmail(String email) {
-        return find("email", email).firstResult();
+import java.util.List;
+
+public class ServiceEndpoint {
+
+    private final ServiceRepository serviceRepository;
+
+    public ServiceEndpoint(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
     }
 
-    public Vendor findByname(String name) {
-        return find("lower(name)", name.toLowerCase()).firstResult();
+    @GET
+    public List<Service> getAllServices(){
+        return this.serviceRepository.listAll();
     }
 
-    public Vendor findByEmailAndName(String name, String email) {
-        return find("lower(name) = :name and email = :email ",
-             Parameters.with("name", name.toLowerCase()).and("email", email)).firstResult();
+    @POST
+    @ResponseStatus(201)
+    @Transactional
+    public Service addService(Service service){
+        this.serviceRepository.persist(service);
+        return service;
     }
 
+    @GET
+    @Path("/{id}")
+    public Service getService(@RestPath("id")long id){
+        Service service = this.serviceRepository.findById(id);
+        if(service == null){
+            throw new WebApplicationException(404);
+        }
+        return service;
+    }
+
+    @PUT
+    @Path("/{id}")
+    @Transactional
+    @ResponseStatus(204)
+    public void updateService(@RestPath("id")long id, Service service){
+        if (id != service.getId()){
+            throw new WebApplicationException(400);
+        }
+        this.serviceRepository.persist(service);
+    }
+
+    @DELETE
+    @Path("/{id}")
+    @Transactional
+    @ResponseStatus(205)
+    public void deleteService(@RestPath("id")long id){
+        this.serviceRepository.deleteById(id);
+    }
 }

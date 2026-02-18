@@ -23,8 +23,8 @@ public class CustomerEndpoint {
     }
 
     @GET
-    public List<Customer> getCustomers(@RestQuery("email") String email) {
-        if(StringUtil.isNullOrEmpty(email)) {
+    public List<Customer> getCustomers(@RestQuery("email")String email){
+        if(StringUtil.isNullOrEmpty(email)){
             return this.customerRepository.listAll();
         }
         List<Customer> customers = new ArrayList<>();
@@ -36,18 +36,18 @@ public class CustomerEndpoint {
     @POST
     @ResponseStatus(201)
     @Transactional
-    public Customer addCustomer(Customer customer) {
+    public Customer addCustomer(Customer customer){
         this.customerRepository.persist(customer);
         return customer;
     }
 
     @GET
     @Path("/{id}")
-    public Customer getCustomer(@RestPath("id") long id) {
+    public Customer getCustomer(@RestPath("id")long id){
         Customer customer = this.customerRepository.findById(id);
-        if(customer == null) {
+        if (customer == null){
             throw new NotFoundException();
-    }
+        }
         return customer;
     }
 
@@ -55,21 +55,19 @@ public class CustomerEndpoint {
     @Path("/{id}")
     @Transactional
     @ResponseStatus(204)
-    public void updateCustomer(@RestPath("id") long id, Customer customer) {
-        if(id != customer.getId()) {
+    public void updateCustomer(@RestPath("id")long id, Customer customer){
+        if(id != customer.getId()){
             throw new BadRequestException();
         }
-
         Customer entity = this.customerRepository.findById(id);
-
-        if(entity == null) {
+        if(entity == null){
             throw new NotFoundException();
         }
-
+        entity.setAddress(customer.getAddress());
         entity.setEmail(customer.getEmail());
-        entity.setFisrtName(customer.getFisrtName());
+        entity.setFirstName(customer.getFirstName());
         entity.setLastName(customer.getLastName());
-
+        entity.setPhone(customer.getPhone());
         this.customerRepository.persist(entity);
     }
 
@@ -77,7 +75,7 @@ public class CustomerEndpoint {
     @Path("/{id}")
     @Transactional
     @ResponseStatus(205)
-    public void deleteCustomer(@RestPath("id") long id) {
+    public void deleteCustomer(@RestPath("id")long id){
         this.customerRepository.deleteById(id);
     }
 }
