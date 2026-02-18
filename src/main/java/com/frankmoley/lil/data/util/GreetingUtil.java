@@ -1,4 +1,4 @@
-package com.frankmoley.lil.util;
+package com.frankmoley.lil.data.util;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import org.eclipse.microprofile.config.inject.ConfigProperty;

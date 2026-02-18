@@ -8,32 +8,33 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="customer_id")
+    @Column(name = "customer_id")
     private long id;
-
-    @Column(name = "name")
-    private String name;
-
+    @Column(name = "first_name")
+    private String fisrtName;
+    @Column(name = "last_name")
+    private String lastName;
     @Column(name = "email")
     private String email;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "address")
+    private String address;
 
-    @Column(name = "number")
-    private int number;
-
-    public long getId() {
-        return id;
+    public String getAddress() {
+        return address;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public String getName() {
-        return name;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
@@ -44,21 +45,39 @@ public class Customer {
         this.email = email;
     }
 
-    public int getNumber() {
-        return number;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFisrtName() {
+        return fisrtName;
+    }
+
+    public void setFisrtName(String fisrtName) {
+        this.fisrtName = fisrtName;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", fisrtName='" + fisrtName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", number=" + number +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }

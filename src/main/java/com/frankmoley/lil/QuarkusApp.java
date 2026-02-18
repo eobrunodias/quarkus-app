@@ -15,13 +15,6 @@ import java.util.List;
 @QuarkusMain
 public class QuarkusApp implements QuarkusApplication {
 
-//    GreetingUtil greetingUtil;
-//
-//    public QuarkusApp(GreetingUtil greetingUtil) {
-//        super();
-//        this.greetingUtil =  greetingUtil;
-//    }
-
     private final ServiceRepository serviceRepository;
     private final VendorRepository vendorRepository;
     private final CustomerRepository customerRepository;

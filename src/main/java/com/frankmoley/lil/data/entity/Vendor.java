@@ -10,15 +10,16 @@ public class Vendor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "vendor_id")
     private long id;
-
     @Column(name = "name")
     private String name;
-
+    @Column(name = "contact")
+    private String contact;
     @Column(name = "email")
     private String email;
-
-    @Column(name = "number")
-    private int number;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "address")
+    private String address;
 
     public long getId() {
         return id;
@@ -44,12 +45,27 @@ public class Vendor {
         this.email = email;
     }
 
-    public int getNumber() {
-        return number;
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     @Override
@@ -57,8 +73,10 @@ public class Vendor {
         return "Vendor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", contact='" + contact + '\'' +
                 ", email='" + email + '\'' +
-                ", number=" + number +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 }
