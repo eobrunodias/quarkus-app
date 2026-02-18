@@ -53,11 +53,11 @@ public class Customer {
         this.lastName = lastName;
     }
 
-    public String getFisrtName() {
+    public String getFirstName() {
         return fisrtName;
     }
 
-    public void setFisrtName(String fisrtName) {
+    public void setFirstName(String fisrtName) {
         this.fisrtName = fisrtName;
     }
 
@@ -80,4 +80,5 @@ public class Customer {
                 ", address='" + address + '\'' +
                 '}';
     }
+
 }
