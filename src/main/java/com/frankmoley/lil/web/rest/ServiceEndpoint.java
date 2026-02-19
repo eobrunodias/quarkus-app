@@ -9,6 +9,9 @@ import org.jboss.resteasy.reactive.RestPath;
 
 import java.util.List;
 
+@Path("/rest/services")
+@Produces("application/json")
+@Consumes("application/json")
 public class ServiceEndpoint {
 
     private final ServiceRepository serviceRepository;

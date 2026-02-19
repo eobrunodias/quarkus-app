@@ -4,9 +4,6 @@ import com.frankmoley.lil.data.entity.Vendor;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import io.quarkus.panache.common.Parameters;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.persistence.EntityManager;
-
-import java.util.List;
 
 @ApplicationScoped
 public class VendorRepository implements PanacheRepository<Vendor> {
@@ -16,7 +13,8 @@ public class VendorRepository implements PanacheRepository<Vendor> {
     }
 
     public Vendor findByName(String name) {
-        return find("lower(name)", name.toLowerCase()).firstResult();
+        return find("name = :name", Parameters.with("name", name))
+                .firstResult();
     }
 
     public Vendor findByEmailAndName(String name, String email) {

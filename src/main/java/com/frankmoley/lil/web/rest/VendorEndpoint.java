@@ -11,6 +11,9 @@ import org.jboss.resteasy.reactive.RestPath;
 import java.util.ArrayList;
 import java.util.List;
 
+@Path("/rest/vendors")
+@Produces("application/json")
+@Consumes("application/json")
 public class VendorEndpoint {
     private final VendorRepository vendorRepository;
 
@@ -46,7 +49,6 @@ public class VendorEndpoint {
         return vendor;
     }
 
-//    here is not working
     @GET
     @Path("/{id}")
     public Vendor getVendor(@RestPath("id")long id){
